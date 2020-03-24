@@ -21,8 +21,10 @@
       </div>
       <div id="results" style="display: none;">
         <h1 class="day-of-week">Day of Week</h1>
+        <h2 class="close">X</h2>
         <p class="main">Your garbage collection day is <span class="day-of-week">
         Day of Week</span>.</p>
+        <p class="layer-id"></p>
         <p>Please be sure to leave your garbage outside on <span class="day-of-week">
         Day of Week</span>. If this week is a federal holiday, leave your
         garbage outside on the following day.</p>
@@ -31,7 +33,28 @@
     <!-- Map -->
     <div id="map" class="map"></div>
     <!-- Legend -->
-    <div class="legend"></div>
+    <div class="legend">
+      <div class="row">
+        <div class="col">
+          <div class="label">Monday</div>
+          <div class="label">Tuesday</div>
+          <div class="label">Wednesday</div>
+          <div class="label">Thursday</div>
+          <div class="label">Friday</div> 
+        </div>
+        <div class="col">
+          <div class="mon color"></div>
+          <div class="tue color"></div>
+          <div class="wed color"></div>
+          <div class="thu color"></div>
+          <div class="fri color"></div>
+          <div class="sat color"></div>
+          <div class="sun color"></div>
+        </div>
+      </div>
+      
+
+    </div>
     <!-- Javascript Imports -->
     <script src="js/jquery-2.2.0.js"></script>
     <script src="js/underscore.js"></script>
@@ -39,3 +62,8 @@
     <script src="js/main.js"></script>
   </body>
 </html>
+<!-- Create a legend for the map. You do not need to use Javascript. You can use HTML
+and CSS to create legend boxes and give each a different color. Put a label next
+to each box. Position the legend on top of the map (hint: you can use absolute
+positioning, which is the technique used to position the sidebar and map on this
+page). -->

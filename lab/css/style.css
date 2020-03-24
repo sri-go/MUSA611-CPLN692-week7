@@ -29,6 +29,42 @@ p.main {
 
 .legend {
   position: absolute;
-  background-color: #fff;
+  top:10px;
+  right:10px;
+  background-color: rgba(184, 183, 183, 0.386);
   z-index: 2000;
+}
+.row {
+  display:flex;
+  width: 200px;
+  height: 90px;
+}
+.col{
+  flex:50%;
+}
+.color{
+  width: 100px;
+  height: 15px;
+  opacity: .8;
+}
+.mon{
+  margin-top: 1px ;
+  background-color: red;
+
+}
+.tue{
+  margin-top: 2px;
+  background-color: orange;
+}
+.wed{
+  margin-top:4px;
+  background-color: yellow;
+}
+.thu{
+  margin-top:3px;
+  background-color: green;
+}
+.fri{
+  margin-top:2px;
+  background-color: blue;
 }

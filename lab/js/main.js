@@ -10,7 +10,7 @@ var Stamen_TonerLite = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{
   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
   subdomains: 'abcd',
   minZoom: 0,
-  maxZoom: 20,
+  maxZoom: 30,
   ext: 'png'
 }).addTo(map);
 
@@ -122,14 +122,35 @@ application.
 Use Underscore to perform analysis on this GeoJSON data: which day of
 the week was the most common for garbage removal? Update the original state
 of the application to report this information.
-
 ===================== */
 
-var dataset = ""
+var dataset = "https://raw.githubusercontent.com/MUSA611-CPLN692-spring2020/datasets/master/geojson/philadelphia-garbage-collection-boundaries.geojson"
 var featureGroup;
 
 var myStyle = function(feature) {
-  return {};
+  console.log(feature.properties.COLLDAY);
+  if(feature.properties.COLLDAY== "MON"){
+    return{fillColor: 'red'};
+  }
+  else if(feature.properties.COLLDAY == "TUE"){
+    return {fillColor: 'orange'};
+  }
+  else if(feature.properties.COLLDAY == "WED"){
+    return {fillColor: 'yellow'};
+  }
+  else if(feature.properties.COLLDAY == "THU"){
+    return {fillColor: 'green'};
+  }
+  else if(feature.properties.COLLDAY == "FRI"){
+    return {fillColor: 'blue'};
+  }
+  else if(feature.properties.COLLDAY == "SAT"){
+    return {fillColor: 'indigo'};
+  }
+  else{
+    return {fillColor: 'violet'};
+  }
+ 
 };
 
 var showResults = function() {
@@ -145,21 +166,62 @@ var showResults = function() {
   $('#results').show();
 };
 
+var getLayerId = function(e) {
+  // console.log(featureGroup.getLayerId(e))
+  $('.layer-id').text(featureGroup.getLayerId(e));
+};
+
+var closeResults = function(){
+  $('.close').on('click', function(){
+    $('#intro').show();
+    $('#results').hide();
+  });
+};
 
 var eachFeatureFunction = function(layer) {
-  layer.on('click', function (event) {
+  var days = {
+    'MON': 'Monday',
+    'TUE': 'Tuesday',
+    'WED': 'Wednesday',
+    'THU': 'Thursday',
+    'FRI': 'Friday', 
+    'SAt': 'Saturday',
+    'SUN': 'Sunday',
+    getFullName: function(day) {
+      return this[day];
+     }
+  };
+    layer.on('click', function (e) {
     /* =====================
     The following code will run every time a layer on the map is clicked.
     Check out layer.feature to see some useful data about the layer that
     you can use in your application.
     ===================== */
+    
+    //Getting Leaflet Layer ID
+    getLayerId(layer);
+
+    //Zooming In to Layer
+    bounds = e.target.getBounds();
+    map.fitBounds(bounds);
+    
+    //Outputting Day of Week
+    $(".main .day-of-week").text(days.getFullName(layer.feature.properties.COLLDAY));
     console.log(layer.feature);
+    
+    //Showing Sidebar
     showResults();
+    //Closing Sidebar
+    closeResults();
   });
+  
 };
 
 var myFilter = function(feature) {
-  return true;
+  // console.log(feature.properties)
+  if(feature.properties.COLLDAY != " "){
+    return true;
+  }
 };
 
 $(document).ready(function() {
